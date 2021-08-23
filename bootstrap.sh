@@ -33,4 +33,4 @@ if [ ! -e ~/.dotfiles ]; then
 fi
 
 cd $HOME
-rcup
+rcup -f
