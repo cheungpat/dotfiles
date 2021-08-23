@@ -1,6 +1,6 @@
 # Symlink these directories instead of individual files inside them.
 # For git submodules and directories managed by dotfiles.
-SYMLINK_DIRS="ohmyzsh vim tmux asdf"
+SYMLINK_DIRS="oh-my-zsh vim tmux asdf"
 
 # Excludes these files from home directory.
 EXCLUDES="bootstrap.sh keyrings *.gpg rcrc"
