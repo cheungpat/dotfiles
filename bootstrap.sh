@@ -20,6 +20,8 @@ if [ ! `which rcup` ]; then
     fi
 fi
 
+git submodule update --init --recursive
+
 # ~/.rcrc has to exist to be discovered by rcm.
 if [ ! -L ~/.rcrc ]; then
     ln -s `pwd`/rcrc ~/.rcrc
