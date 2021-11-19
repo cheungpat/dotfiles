@@ -22,9 +22,9 @@ if [ ! `which rcup` ]; then
         curl https://apt.thoughtbot.com/thoughtbot.gpg.key | $SUDO tee /etc/apt/trusted.gpg.d/thoughtbot.gpg > /dev/null
         echo "deb https://apt.thoughtbot.com/debian/ stable main" | $SUDO tee /etc/apt/sources.list.d/thoughtbot.list > /dev/null
         $SUDO apt-get update
-        $SUDO apt-get install -y rcm
+        $SUDO apt-get install -y rcm zsh neovim
     elif [ `which brew` ]; then
-        brew install rcm
+        brew install rcm neovim
     else
         echo "No recognized package manager to install rcm."
         exit 1
