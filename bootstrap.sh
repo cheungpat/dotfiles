@@ -8,21 +8,21 @@
 set -e
 
 if [ ! `which rcup` ]; then
-    if [ `which apt` ]; then
+    if [ `which apt-get` ]; then
         if [ `id -u` -ne 0 ]; then
             if [ `which sudo` ]; then
                 SUDO=sudo
             else
-                echo "Unable to run apt because user is not root and no sudo installed."
+                echo "Unable to run apt-get because user is not root and no sudo installed."
                 exit 1
             fi
         fi
-        $SUDO apt update
-        $SUDO apt install -y libgnutls-openssl27  # Let's Encrypt cert not recognized. May not need this in the future.
+        $SUDO apt-get update
+        $SUDO apt-get install -y libgnutls-openssl27  # Let's Encrypt cert not recognized. May not need this in the future.
         curl https://apt.thoughtbot.com/thoughtbot.gpg.key | $SUDO tee /etc/apt/trusted.gpg.d/thoughtbot.gpg > /dev/null
         echo "deb https://apt.thoughtbot.com/debian/ stable main" | $SUDO tee /etc/apt/sources.list.d/thoughtbot.list > /dev/null
-        $SUDO apt update
-        $SUDO apt install -y rcm
+        $SUDO apt-get update
+        $SUDO apt-get install -y rcm
     elif [ `which brew` ]; then
         brew install rcm
     else
