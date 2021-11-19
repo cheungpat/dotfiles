@@ -8,15 +8,26 @@
 set -e
 
 if [ ! `which rcup` ]; then
-    if [ `which apt-get` ]; then
-        curl https://apt.thoughtbot.com/thoughtbot.gpg.key | sudo tee /etc/apt/trusted.gpg.d/thoughtbot.gpg > /dev/null
-        echo "deb https://apt.thoughtbot.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/thoughtbot.list > /dev/null
-        sudo apt-get update
-        sudo apt-get install rcm
+    if [ `which apt` ]; then
+        if [ `id -u` -ne 0 ]; then
+            if [ `which sudo` ]; then
+                SUDO=sudo
+            else
+                echo "Unable to run apt because user is not root and no sudo installed."
+                exit 1
+            fi
+        fi
+        $SUDO apt update
+        $SUDO apt install -y libgnutls-openssl27  # Let's Encrypt cert not recognized. May not need this in the future.
+        curl https://apt.thoughtbot.com/thoughtbot.gpg.key | $SUDO tee /etc/apt/trusted.gpg.d/thoughtbot.gpg > /dev/null
+        echo "deb https://apt.thoughtbot.com/debian/ stable main" | $SUDO tee /etc/apt/sources.list.d/thoughtbot.list > /dev/null
+        $SUDO apt update
+        $SUDO apt install -y rcm
     elif [ `which brew` ]; then
         brew install rcm
     else
-        echo "No recognized package manager."
+        echo "No recognized package manager to install rcm."
+        exit 1
     fi
 fi
 
